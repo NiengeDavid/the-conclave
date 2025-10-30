@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,7 @@ export default function RegistrationForm() {
   const onSubmit = async (data: RegistrationFormData) => {
     setIsSubmitting(true);
     try {
+      // Step 1: Register user and save to Google Sheets
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,12 +49,35 @@ export default function RegistrationForm() {
         return;
       }
 
+      // Step 2: Send confirmation email with registration code
+      try {
+        await fetch("/api/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.email,
+            fullName: data.fullName,
+            registrationCode: result.registrationCode,
+          }),
+        });
+      } catch (emailError) {
+        console.error("Email send failed:", emailError);
+        // Don't fail the registration if email fails
+        toast.warning("Registration successful, but email failed to send", {
+          description: `Your code: ${result.registrationCode}. Please save it!`,
+        });
+        return;
+      }
+
+      // Step 3: Show success message
       toast.success("Registration successful!", {
         description: `Check your email for confirmation. Code: ${result.registrationCode}`,
+        duration: 20000, // Show for 20 seconds
       });
 
       reset();
     } catch (error) {
+      console.error("Registration error:", error);
       toast.error("Error", {
         description: "An unexpected error occurred. Please try again.",
       });
