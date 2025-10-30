@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       breakSessions = "12:00 PM - 12:30 PM",
       qaSessions = "Special Q&A Sessions",
       venue = "The bourdellion hotel , 2nd Avenue Gwarimpa",
-      flyerUrl = "https://theconclave.vercel.app/flyer.jpeg",
+      flyerUrl = "https://github.com/NiengeDavid/the-conclave/blob/main/flyer.jpeg",
     } = body;
 
     const data = await resend.emails.send({
