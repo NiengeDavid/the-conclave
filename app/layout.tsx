@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "The Conclave 2025 – Registration",
   description: "Official registration for The Conclave 2025, Abuja.",
   openGraph: {
-    title: "The Conclave 2025 – Registration",
+    title: "The Conclave 2.0 – Registration",
     description: "Official registration for The Conclave 2025, Abuja.",
     type: "website",
   },
