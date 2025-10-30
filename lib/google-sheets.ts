@@ -56,7 +56,7 @@ export async function appendToSheet(row: RegistrationRow) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: "Conclave 2025 Registrations!A:K",
+      range: "Sheet1!A:K",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values,

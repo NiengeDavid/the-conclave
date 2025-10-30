@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const validatedData = registrationSchema.parse(body)
 
     // Generate unique registration code
-    const registrationCode = `CONCLAVE-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+    const registrationCode = `CONCLAVE-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
 
     // Append to Google Sheets
     await appendToSheet({

@@ -3,11 +3,18 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
+type Speaker = {
+  image: string;
+  name: string;
+  role: string;
+};
+
 interface HeroProps {
   onCtaClick: () => void
+  speakers: Speaker[];
 }
 
-export default function Hero({ onCtaClick }: HeroProps) {
+export default function Hero({ onCtaClick, speakers }: HeroProps) {
   return (
     <section className="gradient-bg relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
       {/* Animated gradient orbs */}
@@ -18,8 +25,8 @@ export default function Hero({ onCtaClick }: HeroProps) {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Date badge */}
         <div className="glass-effect inline-flex items-center gap-2 px-4 py-2 mb-8">
-          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-pink-400 rounded-full" />
-          <span className="text-sm font-medium text-muted-foreground">November 2025 | Abuja, Nigeria</span>
+          <div className="w-2 h-2 bg-linear-to-r from-blue-400 to-pink-400 rounded-full" />
+          <span className="text-sm font-medium text-muted-foreground">November 13-14 2025 | Abuja, Nigeria</span>
         </div>
 
         {/* Main headline */}
@@ -36,7 +43,7 @@ export default function Hero({ onCtaClick }: HeroProps) {
         <Button
           onClick={onCtaClick}
           size="lg"
-          className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 px-8 py-6 text-lg font-semibold rounded-lg group"
+          className="bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 px-8 py-6 text-lg font-semibold rounded-lg group"
         >
           Secure your seat
           <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

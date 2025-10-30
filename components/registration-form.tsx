@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useToast } from "@/hooks/use-toast"
-import { registrationSchema, type RegistrationFormData } from "@/lib/validations"
-import { Loader2 } from "lucide-react"
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { toast } from "sonner";
+import {
+  registrationSchema,
+  type RegistrationFormData,
+} from "@/lib/validations";
+import { Loader2 } from "lucide-react";
 
 export default function RegistrationForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -23,47 +25,42 @@ export default function RegistrationForm() {
     watch,
   } = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
-  })
+  });
 
-  const accommodationValue = watch("accommodation")
-  const feedingValue = watch("feeding")
+  const accommodationValue = watch("accommodation");
+  const feedingValue = watch("feeding");
 
   const onSubmit = async (data: RegistrationFormData) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      })
+      });
 
-      const result = await response.json()
+      const result = await response.json();
 
       if (!response.ok) {
-        toast({
-          title: "Registration failed",
+        toast.error("Registration failed", {
           description: result.message || "Please try again.",
-          variant: "destructive",
-        })
-        return
+        });
+        return;
       }
 
-      toast({
-        title: "Registration successful!",
-        description: `Check your WhatsApp for confirmation. Code: ${result.registrationCode}`,
-      })
+      toast.success("Registration successful!", {
+        description: `Check your email for confirmation. Code: ${result.registrationCode}`,
+      });
 
-      reset()
+      reset();
     } catch (error) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <section className="px-4 py-12">
@@ -77,25 +74,30 @@ export default function RegistrationForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="glass-effect p-8 md:p-12 space-y-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="glass-effect p-8 md:p-12 space-y-8"
+        >
           {/* Full Name */}
           <div className="space-y-2">
-            <Label htmlFor="fullName" className="text-base font-semibold">
+            <Label htmlFor="fullName" className="text-base">
               Full Name *
             </Label>
             <Input
               id="fullName"
               placeholder="Enter your full name"
               {...register("fullName")}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground placeholder:text-muted-foreground"
               disabled={isSubmitting}
             />
-            {errors.fullName && <p className="text-sm text-red-500">{errors.fullName.message}</p>}
+            {errors.fullName && (
+              <p className="text-sm text-red-500">{errors.fullName.message}</p>
+            )}
           </div>
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-base font-semibold">
+            <Label htmlFor="email" className="text-base">
               Email *
             </Label>
             <Input
@@ -103,147 +105,184 @@ export default function RegistrationForm() {
               type="email"
               placeholder="your.email@example.com"
               {...register("email")}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground placeholder:text-muted-foreground"
               disabled={isSubmitting}
             />
-            {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Phone Number */}
           <div className="space-y-2">
-            <Label htmlFor="phone" className="text-base font-semibold">
+            <Label htmlFor="phone" className="text-base">
               Phone Number (WhatsApp) *
             </Label>
             <Input
               id="phone"
               placeholder="+234 XXX XXX XXXX"
               {...register("phone")}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground placeholder:text-muted-foreground"
               disabled={isSubmitting}
             />
-            {errors.phone && <p className="text-sm text-red-500">{errors.phone.message}</p>}
+            {errors.phone && (
+              <p className="text-sm text-red-500">{errors.phone.message}</p>
+            )}
           </div>
 
           {/* Title / Designation */}
           <div className="space-y-2">
-            <Label htmlFor="title" className="text-base font-semibold">
+            <Label htmlFor="title" className="text-base">
               Title / Designation *
             </Label>
             <Input
               id="title"
               placeholder="e.g., Senior Pastor, Director"
               {...register("title")}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground placeholder:text-muted-foreground"
               disabled={isSubmitting}
             />
-            {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
+            {errors.title && (
+              <p className="text-sm text-red-500">{errors.title.message}</p>
+            )}
           </div>
 
           {/* Ministry / Center */}
           <div className="space-y-2">
-            <Label htmlFor="ministry" className="text-base font-semibold">
+            <Label htmlFor="ministry" className="text-base">
               Ministry / Center *
             </Label>
             <Input
               id="ministry"
               placeholder="Name of your ministry or center"
               {...register("ministry")}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground placeholder:text-muted-foreground"
               disabled={isSubmitting}
             />
-            {errors.ministry && <p className="text-sm text-red-500">{errors.ministry.message}</p>}
+            {errors.ministry && (
+              <p className="text-sm text-red-500">{errors.ministry.message}</p>
+            )}
           </div>
 
           {/* Arrival Date */}
           <div className="space-y-2">
-            <Label htmlFor="arrivalDate" className="text-base font-semibold">
+            <Label htmlFor="arrivalDate" className="text-base">
               Arrival Date *
             </Label>
             <Input
               id="arrivalDate"
               type="date"
               {...register("arrivalDate")}
-              className="bg-input border-border text-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground"
               disabled={isSubmitting}
             />
-            {errors.arrivalDate && <p className="text-sm text-red-500">{errors.arrivalDate.message}</p>}
+            {errors.arrivalDate && (
+              <p className="text-sm text-red-500">
+                {errors.arrivalDate.message}
+              </p>
+            )}
           </div>
 
           {/* Departure Date */}
           <div className="space-y-2">
-            <Label htmlFor="departureDate" className="text-base font-semibold">
+            <Label htmlFor="departureDate" className="text-base">
               Departure Date *
             </Label>
             <Input
               id="departureDate"
               type="date"
               {...register("departureDate")}
-              className="bg-input border-border text-foreground"
+              className="bg-transparent py-6 border-black/30 text-foreground"
               disabled={isSubmitting}
             />
-            {errors.departureDate && <p className="text-sm text-red-500">{errors.departureDate.message}</p>}
+            {errors.departureDate && (
+              <p className="text-sm text-red-500">
+                {errors.departureDate.message}
+              </p>
+            )}
           </div>
 
           {/* Accommodation */}
           <div className="space-y-3">
-            <Label className="text-base font-semibold">Accommodation required? *</Label>
+            <Label className="text-base">Accommodation required? *</Label>
             <RadioGroup
               value={accommodationValue}
               onValueChange={(value) => {
                 const event = {
                   target: { name: "accommodation", value },
-                } as any
-                register("accommodation").onChange(event)
+                } as any;
+                register("accommodation").onChange(event);
               }}
               disabled={isSubmitting}
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="yes" id="accommodation-yes" />
-                <Label htmlFor="accommodation-yes" className="font-normal cursor-pointer">
+                <Label
+                  htmlFor="accommodation-yes"
+                  className="font-normal cursor-pointer"
+                >
                   Yes
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="no" id="accommodation-no" />
-                <Label htmlFor="accommodation-no" className="font-normal cursor-pointer">
-                  No
-                </Label>
-              </div>
-            </RadioGroup>
-            <p className="text-xs text-muted-foreground">No free accommodation. Nearby hotel list will be shared.</p>
-            {errors.accommodation && <p className="text-sm text-red-500">{errors.accommodation.message}</p>}
-          </div>
-
-          {/* Feeding */}
-          <div className="space-y-3">
-            <Label className="text-base font-semibold">Feeding required? *</Label>
-            <RadioGroup
-              value={feedingValue}
-              onValueChange={(value) => {
-                const event = {
-                  target: { name: "feeding", value },
-                } as any
-                register("feeding").onChange(event)
-              }}
-              disabled={isSubmitting}
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="yes" id="feeding-yes" />
-                <Label htmlFor="feeding-yes" className="font-normal cursor-pointer">
-                  Yes
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="no" id="feeding-no" />
-                <Label htmlFor="feeding-no" className="font-normal cursor-pointer">
+                <Label
+                  htmlFor="accommodation-no"
+                  className="font-normal cursor-pointer"
+                >
                   No
                 </Label>
               </div>
             </RadioGroup>
             <p className="text-xs text-muted-foreground">
-              Only light snacks & water provided. Restaurant list will be shared.
+              No free accommodation. Nearby hotel list will be shared.
             </p>
-            {errors.feeding && <p className="text-sm text-red-500">{errors.feeding.message}</p>}
+            {errors.accommodation && (
+              <p className="text-sm text-red-500">
+                {errors.accommodation.message}
+              </p>
+            )}
+          </div>
+
+          {/* Feeding */}
+          <div className="space-y-3">
+            <Label className="text-base">Feeding required? *</Label>
+            <RadioGroup
+              value={feedingValue}
+              onValueChange={(value) => {
+                const event = {
+                  target: { name: "feeding", value },
+                } as any;
+                register("feeding").onChange(event);
+              }}
+              disabled={isSubmitting}
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="yes" id="feeding-yes" />
+                <Label
+                  htmlFor="feeding-yes"
+                  className="font-normal cursor-pointer"
+                >
+                  Yes
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="no" id="feeding-no" />
+                <Label
+                  htmlFor="feeding-no"
+                  className="font-normal cursor-pointer"
+                >
+                  No
+                </Label>
+              </div>
+            </RadioGroup>
+            <p className="text-xs text-muted-foreground">
+              Only light snacks & water provided. Restaurant list will be
+              shared.
+            </p>
+            {errors.feeding && (
+              <p className="text-sm text-red-500">{errors.feeding.message}</p>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -264,5 +303,5 @@ export default function RegistrationForm() {
         </form>
       </div>
     </section>
-  )
+  );
 }
