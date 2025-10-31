@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     } = body;
 
     const data = await resend.emails.send({
-      from: "The Conclave 2.0 <onboarding@resend.dev>",
+      from: "The Conclave 2.0 Team <registration@theconclave.com.ng>",
       to: email,
       subject: "CONGRATULATIONS YOU'RE REGISTERED",
       react: EmailTemplate({
