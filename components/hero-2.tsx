@@ -75,8 +75,12 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
               <span className="gradient-text">The Conclave 2025</span>
             </h1>
             <p className="mt-6 text-lg text-white">
-              Discover how we're furthering our mission to organize the world's
-              information and make it universally accessible and useful.
+              We are delighted to welcome you to Conclave 2025 - an exclusive
+              gathering of pastors, partners, and protégés committed to the
+              divine assignment God has entrusted to Rev. Arome Tokula. It’s a
+              time of impartation, renewal, and advancement as we receive from
+              Rev. Ayeni, a father and mentor in the faith. Come expectant, for
+              this will be a destiny-defining encounter in God’s presence.
             </p>
           </div>
 
@@ -85,7 +89,7 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
             {/* Speakers Header & Accessibility */}
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-semibold text-white">Speakers</h2>
-              <div>
+              <div className="hidden md:block">
                 <Button
                   onClick={onCtaClick}
                   size="lg"
