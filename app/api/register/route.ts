@@ -1,7 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { appendToSheet } from "@/lib/google-sheets";
-import { registrationSchema } from "@/lib/validations";
-import { generateQrDataUri } from "@/lib/qr";
 import QRCode from "qrcode";
 
 function generateRegistrationCode(): string {
