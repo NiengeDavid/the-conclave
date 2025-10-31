@@ -9,6 +9,7 @@ interface EmailTemplateProps {
   qaSessions: string;
   venue: string;
   flyerUrl?: string;
+  qrDataUri?: string;
 }
 
 export function EmailTemplate({
@@ -20,6 +21,7 @@ export function EmailTemplate({
   qaSessions,
   venue,
   flyerUrl,
+  qrDataUri,
 }: EmailTemplateProps) {
   return (
     <div
@@ -124,6 +126,30 @@ export function EmailTemplate({
           assigned a passcode. Please note, it admits only you and it is{" "}
           <strong>non-transferable</strong>.
         </p>
+
+        {qrDataUri && (
+          <div style={{ textAlign: "center", margin: "20px 0" }}>
+            <p
+              style={{
+                margin: "0 0 10px 0",
+                fontSize: "14px",
+                color: "#34495e",
+              }}
+            >
+              QR Code for Quick Entry:
+            </p>
+            <img
+              src={qrDataUri}
+              alt="QR Code"
+              style={{
+                maxWidth: "200px",
+                height: "auto",
+                margin: "0 auto",
+                display: "block",
+              }}
+            />
+          </div>
+        )}
 
         <div
           style={{

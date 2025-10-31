@@ -58,13 +58,15 @@ export default function RegistrationForm() {
             email: data.email,
             fullName: data.fullName,
             registrationCode: result.registrationCode,
+            qrDataUri: result.qrDataUri,
           }),
         });
       } catch (emailError) {
         console.error("Email send failed:", emailError);
         // Don't fail the registration if email fails
         toast.warning("Registration successful, but email failed to send", {
-          description: `Your code: ${result.registrationCode}. Please save it!`,
+          description: `Your code: ${result.registrationCode}. Please save it Now!`,
+          duration: 60000,
         });
         return;
       }
