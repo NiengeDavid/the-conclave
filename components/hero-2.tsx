@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 // Define the TypeScript type for a single speaker
 type Speaker = {
@@ -16,7 +17,7 @@ interface KeynoteProps {
   onCtaClick: () => void;
 }
 
-const imageSrc = "/assets/logo.png";
+const imageSrc = "/assets/conclaveBanner.jpeg";
 
 const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
   return (
@@ -35,7 +36,7 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
           </span>
         </div>
         {/* Video Placeholder */}
-        <div className="relative aspect-video w-full overflow-hidden rounded-lg mb-12 md:mb-16">
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg mb-12 md:mb-16">
           {/* Background Image */}
           <Image
             src={imageSrc}
@@ -44,36 +45,25 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
             objectFit="cover"
             priority
           />
-
-          {/* Overlay & Play Button */}
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-blue-500/40 via-purple-500/30 to-pink-500/40 flex items-center justify-center"
-            onClick={onCtaClick}
-          >
-            <svg
-              width="80"
-              height="80"
-              viewBox="0 0 80 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="cursor-pointer transition-transform hover:scale-110 active:scale-95"
-            >
-              <circle cx="40" cy="40" r="40" fill="rgba(0, 0, 0, 0.4)" />
-              <path
-                d="M55.5 40L32.25 53.4256L32.25 26.5744L55.5 40Z"
-                fill="white"
-              />
-            </svg>
-          </div>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-16">
           {/* Left Column: Title & Description */}
           <div className="lg:col-span-1 mb-10 border-b border-white/20 pb-8 lg:border-none lg:pb-0 lg:mb-0">
-            <h1 className="text-5xl font-bold tracking-tight leading-tight">
-              <span className="gradient-text">The Conclave 2025</span>
-            </h1>
+            <div className="w-full flex items-center justify-between gap-2 mx-auto mb-6">
+              <h1 className="text-5xl font-bold tracking-tight leading-tight">
+                <span className="gradient-text">The Conclave 2025</span>
+              </h1>
+              <Button
+                onClick={onCtaClick}
+                size="lg"
+                className="bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 p-2 text-xs font-semibold rounded-lg group cursor-pointer lg:hidden"
+              >
+                Secure your seat
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
             <p className="mt-6 text-lg text-white">
               We are delighted to welcome you to Conclave 2025 - an exclusive
               gathering of pastors, partners, and protégés committed to the
@@ -89,7 +79,7 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
             {/* Speakers Header & Accessibility */}
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-semibold text-white">Speakers</h2>
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <Button
                   onClick={onCtaClick}
                   size="lg"
