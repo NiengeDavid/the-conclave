@@ -14,12 +14,14 @@ A modern, pixel-perfect event registration site built with Next.js 15, TypeScrip
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui
 - **Forms**: React Hook Form + Zod
 - **Database**: Google Sheets API
+- **Emails**: Resend
+- **QR Codes**: qrcode 
 - **Deployment**: Vercel
 
 ## Setup Instructions
