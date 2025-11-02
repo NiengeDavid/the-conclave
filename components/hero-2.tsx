@@ -60,7 +60,7 @@ const KeynoteSection: React.FC<KeynoteProps> = ({ onCtaClick, speakers }) => {
                 size="lg"
                 className="bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0 p-2 text-xs font-semibold rounded-lg group cursor-pointer lg:hidden"
               >
-                Secure your seat
+                Register
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
