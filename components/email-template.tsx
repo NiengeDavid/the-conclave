@@ -5,8 +5,6 @@ interface EmailTemplateProps {
   registrationCode: string;
   eventDate: string;
   eventTime: string;
-  breakSessions: string;
-  qaSessions: string;
   venue: string;
   flyerUrl?: string;
   qrDataUri?: string;
@@ -17,8 +15,6 @@ export function EmailTemplate({
   registrationCode,
   eventDate,
   eventTime,
-  breakSessions,
-  qaSessions,
   venue,
   flyerUrl,
   qrDataUri,
@@ -50,7 +46,7 @@ export function EmailTemplate({
             marginBottom: "20px",
           }}
         >
-          You're Registered!
+          Welcome to The Conclave 2025
         </h1>
 
         <p style={{ color: "#34495e", fontSize: "16px", lineHeight: "1.6" }}>
@@ -102,23 +98,72 @@ export function EmailTemplate({
               fontSize: "18px",
             }}
           >
-            Program Schedule
+            Please take note of the following important details for the Conclave
+            2025:
           </h3>
           <p style={{ margin: "10px 0", color: "#34495e" }}>
-            <strong>Date:</strong> {eventDate}
+            <strong>1. Date:</strong> {eventDate}
           </p>
           <p style={{ margin: "10px 0", color: "#34495e" }}>
-            <strong>Time:</strong> {eventTime}
+            <strong>2. Time:</strong> {eventTime}
           </p>
           <p style={{ margin: "10px 0", color: "#34495e" }}>
-            <strong>Break Sessions:</strong> {breakSessions}
+            <strong>3. Venue:</strong> {venue}
           </p>
-          <p style={{ margin: "10px 0", color: "#34495e" }}>
-            <strong>Q&A Sessions:</strong> {qaSessions}
-          </p>
-          <p style={{ margin: "10px 0", color: "#34495e" }}>
-            <strong>Venue:</strong> {venue}
-          </p>
+          <h4 style={{ margin: "20px 0 10px 0", color: "#2c3e50" }}>
+            4. Attendance & Punctuality
+          </h4>
+          <ul
+            style={{ margin: "10px 0", paddingLeft: "20px", color: "#34495e" }}
+          >
+            <li>
+              Conclave is a stretch meeting designed for deep focus and full
+              engagement.
+            </li>
+            <li>Sessions will run continuously with short or no breaks.</li>
+            <li>
+              Punctuality is very important. All sessions will start promptly at
+              the stated time.
+            </li>
+            <li>
+              Please arrive early each day to complete your check-in and settle
+              before sessions begin.
+            </li>
+          </ul>
+
+          <h4 style={{ margin: "20px 0 10px 0", color: "#2c3e50" }}>
+            5. Access & Entry
+          </h4>
+          <ul
+            style={{ margin: "10px 0", paddingLeft: "20px", color: "#34495e" }}
+          >
+            <li>
+              Each participant has been assigned a unique QR code and passcode.
+            </li>
+            <li>
+              These credentials are strictly personal and non-transferable.
+            </li>
+            <li>
+              Your QR code grants you quick entry at the venue gate—please have
+              it ready upon arrival.
+            </li>
+          </ul>
+
+          <h4 style={{ margin: "20px 0 10px 0", color: "#2c3e50" }}>
+            6. Preparation & Mindset
+          </h4>
+          <ul
+            style={{ margin: "10px 0", paddingLeft: "20px", color: "#34495e" }}
+          >
+            <li>
+              Come focused, alert, and spiritually ready to receive all that God
+              has for you.
+            </li>
+            <li>
+              Plan your schedule to remain fully present throughout the
+              sessions.
+            </li>
+          </ul>
         </div>
 
         <p style={{ color: "#34495e", fontSize: "16px", lineHeight: "1.6" }}>
@@ -211,7 +256,7 @@ export function EmailTemplate({
             borderTop: "1px solid #e0e0e0",
           }}
         >
-          <p style={{ margin: "5px 0", color: "#34495e" }}>Yours,</p>
+          <p style={{ margin: "5px 0", color: "#34495e" }}>Warm regards,</p>
           <p style={{ margin: "5px 0", color: "#34495e", fontWeight: "bold" }}>
             Blessing Ingyape
           </p>
@@ -231,7 +276,7 @@ export function EmailTemplate({
           marginTop: "20px",
         }}
       >
-        🎉 We look forward to seeing you there!
+        🎉 We look forward to a powerful and unforgettable time together!
       </p>
     </div>
   );

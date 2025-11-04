@@ -14,10 +14,8 @@ export async function POST(request: Request) {
       fullName,
       registrationCode,
       eventDate = "Thursday 13th & Friday 14th November, 2025.",
-      eventTime = "7am - 3pm(WAT)",
-      breakSessions = "12:00 PM - 12:30 PM",
-      qaSessions = "Special Q&A Sessions",
-      venue = "The bourdellion hotel , 2nd Avenue Gwarimpa",
+      eventTime = "7:00 AM – 3:00 PM (WAT)",
+      venue = "The Bourdellion Hotel , 2nd Avenue Gwarimpa, Abuja.",
       qrDataUri,
     } = body;
 
@@ -38,8 +36,6 @@ export async function POST(request: Request) {
         registrationCode,
         eventDate,
         eventTime,
-        breakSessions,
-        qaSessions,
         venue,
         flyerUrl: "cid:flyer",
         qrDataUri: "cid:qrcode",
