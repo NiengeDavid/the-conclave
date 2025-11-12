@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
       accommodation: body.accommodation,
       feeding: body.feeding,
       registrationCode,
+      status: "pending",
     };
 
     await appendToSheet(registrationData);

@@ -1,40 +1,43 @@
-import { google } from "googleapis"
+import { google } from "googleapis";
 
 interface RegistrationRow {
-  timestamp: string
-  fullName: string
-  phone: string
-  email: string
-  title: string
-  ministry: string
-  arrivalDate: string
-  departureDate: string
-  accommodation: string
-  feeding: string
-  registrationCode: string
+  timestamp: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  title: string;
+  ministry: string;
+  arrivalDate: string;
+  departureDate: string;
+  accommodation: string;
+  feeding: string;
+  registrationCode: string;
+  status: string;
 }
 
 async function getSheetClient() {
-  const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
+  const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
 
   if (!serviceAccountKey) {
-    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set")
+    throw new Error(
+      "GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set"
+    );
   }
 
   const auth = new google.auth.GoogleAuth({
     credentials: JSON.parse(serviceAccountKey),
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  })
+  });
 
-  return google.sheets({ version: "v4", auth })
+  return google.sheets({ version: "v4", auth });
 }
 
 export async function appendToSheet(row: RegistrationRow) {
-  const sheets = await getSheetClient()
-  const sheetId = process.env.SHEET_ID
+  const sheets = await getSheetClient();
+  const sheetId = process.env.SHEET_ID;
 
   if (!sheetId) {
-    throw new Error("SHEET_ID environment variable is not set")
+    throw new Error("SHEET_ID environment variable is not set");
   }
 
   const values = [
@@ -50,20 +53,21 @@ export async function appendToSheet(row: RegistrationRow) {
       row.accommodation,
       row.feeding,
       row.registrationCode,
+      "pending",
     ],
-  ]
+  ];
 
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: "Sheet1!A:K",
+      range: "Sheet1!A:L",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values,
       },
-    })
+    });
   } catch (error) {
-    console.error("Error appending to sheet:", error)
-    throw new Error("Failed to save registration to database")
+    console.error("Error appending to sheet:", error);
+    throw new Error("Failed to save registration to database");
   }
 }
